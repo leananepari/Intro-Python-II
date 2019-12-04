@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -33,19 +34,53 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+# print(room['outside'].n_to.name)
+# print(room['outside'])
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+new_player = Player(room['outside'])
 
 # Write a loop that:
 #
+while True:
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
+  print(new_player.room.name)
+  print(new_player.room.description)
 # * Waits for user input and decides what to do.
 #
+  direction = input('go to -> ')
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+  if direction == 'n':
+    if new_player.room.n_to:
+      new_player.room = new_player.room.n_to
+    else:
+      print('Movement is not allowed')
+  elif direction == 's':
+    if new_player.room.s_to:
+      new_player.room = new_player.room.s_to
+    else:
+      print('Movement is not allowed')
+  elif direction == 'e':
+    if new_player.room.e_to:
+      new_player.room = new_player.room.e_to
+    else:
+      print('Movement is not allowed')
+  elif direction == 'w':
+    if new_player.room.w_to:
+      new_player.room = new_player.room.w_to
+    else:
+      print('Movement is not allowed')
+  elif direction == 'q':
+    print('Goodbye')
+    break
+  else:
+    print('Invalid command')

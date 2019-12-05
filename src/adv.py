@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -18,21 +19,33 @@ the distance, but there is no way across the chasm."""),
 to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+chamber! Be careful, don't wake the dragon!"""),
+}
+
+item = {
+  'rock': Item("rock", "Use this rock to break into locked box inside the foyer room"),
+  'map': Item("map", "Map to find the treasure room"),
+  'flute': Item("flute", "Play flute to make dragon go back to sleep"),
+  'key': Item("key", "Use this key to unlock the door to narrow room"),
+  'coins': Item("coins", "Collect golden coins if you trick the dragon")
 }
 
 
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
+room['outside'].items.append(item['rock'])
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
+room['foyer'].items.append(item['map'])
+room['foyer'].items.append(item['flute'])
 room['overlook'].s_to = room['foyer']
+room['overlook'].items.append(item['key'])
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['treasure'].items.append(item['coins'])
 
 
 # print(room['outside'].n_to.name)
@@ -52,6 +65,7 @@ while True:
 # * Prints the current description (the textwrap module might be useful here).
   print(new_player.room.name)
   print(new_player.room.description)
+  new_player.room.printItems()
 # * Waits for user input and decides what to do.
 #
   direction = input('go to -> ')
@@ -60,25 +74,13 @@ while True:
 #
 # If the user enters "q", quit the game.
   if direction == 'n':
-    if new_player.room.n_to:
-      new_player.room = new_player.room.n_to
-    else:
-      print('Movement is not allowed')
+    new_player.move('n')
   elif direction == 's':
-    if new_player.room.s_to:
-      new_player.room = new_player.room.s_to
-    else:
-      print('Movement is not allowed')
+    new_player.move('s')
   elif direction == 'e':
-    if new_player.room.e_to:
-      new_player.room = new_player.room.e_to
-    else:
-      print('Movement is not allowed')
+    new_player.move('e')
   elif direction == 'w':
-    if new_player.room.w_to:
-      new_player.room = new_player.room.w_to
-    else:
-      print('Movement is not allowed')
+    new_player.move('w')
   elif direction == 'q':
     print('Goodbye')
     break

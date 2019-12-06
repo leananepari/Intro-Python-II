@@ -73,16 +73,19 @@ while True:
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-  if direction == 'n':
-    new_player.move('n')
-  elif direction == 's':
-    new_player.move('s')
-  elif direction == 'e':
-    new_player.move('e')
-  elif direction == 'w':
-    new_player.move('w')
-  elif direction == 'q':
-    print('Goodbye')
-    break
+  if direction.split(' ')[0] == 'take' or direction.split(' ')[0] == 'get':
+    new_player.getItem(direction.split(' ')[1])
   else:
-    print('Invalid command')
+    if direction == 'n':
+      new_player.move('n')
+    elif direction == 's':
+      new_player.move('s')
+    elif direction == 'e':
+      new_player.move('e')
+    elif direction == 'w':
+      new_player.move('w')
+    elif direction == 'q':
+      print('Goodbye')
+      break
+    else:
+      print('Invalid command')

@@ -21,12 +21,11 @@ class Player:
       if self.room.items[x].name == item:
         itemObj = self.room.items[x].name
         self.items.append(self.room.items[x])
+        self.room.items[x].on_take()
         del(self.room.items[x])
         break
     if itemObj == None:
       print('No such item')
-    else:
-      print(f"You picked up {itemObj}")
 
   def dropItem(self, item):
     itemObj = None
@@ -34,10 +33,9 @@ class Player:
       if self.items[x].name == item:
         itemObj = self.items[x].name
         self.room.items.append(self.items[x])
+        self.items[x].on_drop()
         del(self.items[x])
         break
     if itemObj == None:
       print('No such item')
-    else:
-      print(f"You dropped {itemObj}")
 

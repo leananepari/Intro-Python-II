@@ -75,6 +75,8 @@ while True:
 # If the user enters "q", quit the game.
   if direction.split(' ')[0] == 'take' or direction.split(' ')[0] == 'get':
     new_player.getItem(direction.split(' ')[1])
+  elif direction.split(' ')[0] == 'drop':
+    new_player.dropItem(direction.split(' ')[1])
   else:
     if direction == 'n':
       new_player.move('n')

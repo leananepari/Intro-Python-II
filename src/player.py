@@ -27,3 +27,17 @@ class Player:
       print('No such item')
     else:
       print(f"You picked up {itemObj}")
+
+  def dropItem(self, item):
+    itemObj = None
+    for x in range(len(self.items)):
+      if self.items[x].name == item:
+        itemObj = self.items[x].name
+        self.room.items.append(self.items[x])
+        del(self.items[x])
+        break
+    if itemObj == None:
+      print('No such item')
+    else:
+      print(f"You dropped {itemObj}")
+

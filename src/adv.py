@@ -89,5 +89,7 @@ while True:
     elif direction == 'q':
       print('Goodbye')
       break
+    elif direction == 'i':
+      new_player.getInventory()
     else:
       print('Invalid command')

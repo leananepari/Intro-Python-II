@@ -38,4 +38,11 @@ class Player:
         break
     if itemObj == None:
       print('No such item')
+    
+  def getInventory(self):
+    itemArr = []
+    for x in range(len(self.items)):
+      itemArr.append(self.items[x].name)
+
+    print("You have: ", itemArr)
 
